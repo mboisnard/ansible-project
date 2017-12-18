@@ -1,0 +1,67 @@
+---
+
+- hosts: jenkins
+  tasks:
+    - name: Add OpenJdk Repository
+      apt_repository:
+        repo: 'ppa:openjdk-r/ppa'
+      become: yes
+
+    - name: Install Dev Tools (Git, JDK8)
+      apt:
+        name:
+          - git
+          - openjdk-8-jdk
+        update_cache: yes
+      become: yes
+
+    - name: Add Jenkins GPG Key
+      shell: curl -fsSL https://pkg.jenkins.io/debian/jenkins-ci.org.key | apt-key add -
+      become: yes
+
+    - name: Add Jenkins Repository to Sources List 
+      shell: echo 'deb http://pkg.jenkins.io/debian binary/' > /etc/apt/sources.list.d/jenkins.list
+      become: yes
+
+    - name: Install Jenkins Latest Version
+      apt:
+        name:
+          - jenkins
+        update_cache: yes
+      become: yes
+
+    - name: Wait Jenkins Initialization
+      wait_for:
+        timeout: 60
+
+    - name: Get Admin User Default Password
+      command: cat /var/lib/jenkins/secrets/initialAdminPassword
+      register: admin_password
+      become: yes
+
+    - name: Create Folder
+      file: 
+        path: /home/ubuntu/jenkins/
+        recurse: yes
+        state: directory
+
+    - name: Copying Groovy Scripts Files
+      copy:
+        src: files/
+        dest: /home/ubuntu/jenkins/
+
+    - find:
+        paths: /home/ubuntu/jenkins/config_scripts
+      register: groovy_files
+
+    - command: cat {{ item }}
+      with_items: "{{ groovy_files.files | sort(attribute='path') | map(attribute='path') | list }}"
+      register: groovy_scripts
+
+    - name: Execute Groovy Scripts
+      jenkins_script:
+        user: admin
+        password: "{{ admin_password.stdout }}"
+        script: "{{ item }}"
+        timeout: 1200
+      with_items: "{{ groovy_scripts.results | map(attribute='stdout') | list }}"

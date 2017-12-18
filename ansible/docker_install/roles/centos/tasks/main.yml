@@ -1,0 +1,31 @@
+---
+
+- name: Install Dependencies for DeviceMapper storage driver
+  yum:
+    name:
+      - device-mapper-persistent-data
+      - lvm2
+  become: yes
+
+- name: Add Docker Repository
+  yum_repository:
+    name: docker-ce-stable
+    description: Docker CE Stable
+    baseurl: https://download.docker.com/linux/centos/7/x86_64/stable
+    gpgkey: https://download.docker.com/linux/centos/gpg
+    gpgcheck: yes
+  become: yes
+
+- name: Install Docker Community Edition
+  yum:
+    name: 
+      - docker-ce
+  become: yes
+
+- name: Docker AutoStart at Boot
+  shell: systemctl enable docker
+  become: yes
+
+- name: Start Docker Service
+  shell: systemctl start docker
+  become: yes

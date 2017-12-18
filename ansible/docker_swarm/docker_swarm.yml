@@ -1,0 +1,21 @@
+---
+
+- name: Initialize Docker Swarm on Manager
+  hosts: manager
+  roles:
+    - manager
+
+- name: Add worker to Swarm Node
+  hosts: worker
+  roles:
+    - worker
+
+- hosts: manager
+  tasks:
+    - name: Check Swarm Connected Nodes
+      shell: docker node ls
+      register: swarm_nodes
+      become: yes
+
+    - debug:
+        var: swarm_nodes.stdout_lines

@@ -1,0 +1,13 @@
+---
+
+- name: Install Docker on Master node
+  hosts: master
+  roles:
+    - ubuntu
+    - common
+
+- name: Install Docker on Slave node
+  hosts: slave
+  roles:
+    - centos
+    - common

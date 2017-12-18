@@ -1,0 +1,6 @@
+---
+
+- name: Docker Swarm Init
+  shell: docker swarm init --advertise-addr 192.168.56.210
+  register: swarm_join
+  become: yes

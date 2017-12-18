@@ -1,0 +1,9 @@
+---
+
+- name: Get Docker Join Command
+  debug:
+    var: hostvars['master-esgi.vm']['swarm_join'].stdout | regex_search('\b(docker swarm join --).+\b')
+
+- name: Join Docker Swarm Node
+  shell: eval "sudo {{ hostvars['master-esgi.vm']['swarm_join'].stdout | regex_search('\b(docker swarm join --).+\b') }}"
+  become: yes

@@ -1,0 +1,19 @@
+---
+
+# get_url not work
+- name: Install Docker Compose
+  shell: curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
+  become: yes
+
+- file:
+    path: /usr/local/bin/docker-compose
+    mode: 0755
+  become: yes
+
+- name: Check Installed Docker Version
+  shell: docker version
+  register: docker_installed_version
+  become: yes
+
+- debug:
+    var: docker_installed_version.stdout_lines

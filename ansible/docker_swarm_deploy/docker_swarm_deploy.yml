@@ -1,0 +1,38 @@
+---
+
+- hosts: manager
+  tasks:
+    - name: Create Folder
+      file: 
+        path: /home/ubuntu/swarm/
+        recurse: yes
+        state: directory
+
+    - name: Copying Docker Compose File
+      copy:
+        src: docker-compose.yml
+        dest: /home/ubuntu/swarm/docker-compose.yml
+
+    - name: Deploy To Swarm
+      shell: docker stack deploy --compose-file=/home/ubuntu/swarm/docker-compose.yml tools
+      become: yes
+
+    - name: Wait for Pull Images & Start Docker Containers
+      wait_for:
+        timeout: 180
+
+    - name: Check Deployed Services
+      shell: docker service ls
+      register: swarm_service_ls
+      become: yes
+
+    - debug:
+        var: swarm_service_ls.stdout_lines
+
+    - name: Check Running Services
+      shell: docker service ps tools_zookeeper tools_kafka
+      register: swarm_service_ps
+      become: yes
+
+    - debug:
+        var: swarm_service_ps.stdout_lines

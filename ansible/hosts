@@ -1,0 +1,21 @@
+[master]
+master-esgi.vm ansible_user=ubuntu ansible_host=192.168.56.210
+
+[slave]
+slave-esgi.vm ansible_user=vagrant ansible_host=192.168.56.211
+
+[swarm:children]
+master
+slave
+
+[manager:children]
+master
+
+[worker:children]
+slave
+
+[jenkins:children]
+master
+
+[registry:children]
+master
