@@ -1,0 +1,13 @@
+---
+
+apt:
+  jenkins:
+    base_url: http://pkg.jenkins.io/debian
+    gpg_key: https://pkg.jenkins.io/debian/jenkins-ci.org.key
+
+jenkins:
+  password:
+    default_file: /var/lib/jenkins/secrets/initialAdminPassword
+  config:
+    folder: /home/ubuntu/jenkins/
+    scripts_location: /home/ubuntu/jenkins/config_scripts

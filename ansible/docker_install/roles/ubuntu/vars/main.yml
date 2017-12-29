@@ -1,0 +1,6 @@
+---
+
+apt:
+  docker:
+    base_url: https://download.docker.com/linux/ubuntu
+    gpg_key: https://download.docker.com/linux/ubuntu/gpg

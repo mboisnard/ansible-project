@@ -1,0 +1,6 @@
+---
+
+yum:
+  docker:
+    base_url: https://download.docker.com/linux/centos/7/x86_64/stable
+    gpg_key: https://download.docker.com/linux/centos/gpg

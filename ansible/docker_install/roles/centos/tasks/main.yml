@@ -11,8 +11,8 @@
   yum_repository:
     name: docker-ce-stable
     description: Docker CE Stable
-    baseurl: https://download.docker.com/linux/centos/7/x86_64/stable
-    gpgkey: https://download.docker.com/linux/centos/gpg
+    baseurl: "{{ yum.docker.base_url }}"
+    gpgkey: "{{ yum.docker.gpg_key }}"
     gpgcheck: yes
   become: yes
 

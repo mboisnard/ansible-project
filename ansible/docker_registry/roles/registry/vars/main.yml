@@ -1,0 +1,6 @@
+---
+
+docker:
+  compose:
+    folder: /home/ubuntu/registry
+    file_location: /home/ubuntu/registry/docker-compose.yml

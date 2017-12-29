@@ -1,0 +1,9 @@
+---
+
+- name: Check Swarm Connected Nodes
+  shell: docker node ls
+  register: swarm_nodes
+  become: yes
+
+- debug:
+    var: swarm_nodes.stdout_lines

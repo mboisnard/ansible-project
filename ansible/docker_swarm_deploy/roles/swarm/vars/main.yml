@@ -1,0 +1,7 @@
+---
+
+docker:
+  swarm:
+    folder: /home/ubuntu/swarm
+    compose:
+      file_location: /home/ubuntu/swarm/docker-compose.yml

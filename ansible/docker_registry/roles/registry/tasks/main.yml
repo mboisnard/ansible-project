@@ -1,0 +1,24 @@
+---
+
+- name: Create Folder
+  file: 
+    path: "{{ docker.compose.folder }}"
+    recurse: yes
+    state: directory
+    
+- name: Copying Docker Compose File
+  copy:
+    src: docker-compose.yml
+    dest: "{{ docker.compose.file_location }}"
+
+- name: Start Registry Container
+  shell: docker-compose -p registry -f "{{ docker.compose.file_location }}" up -d
+  become: yes
+
+- name: Check Started Registry
+  shell: docker ps
+  register: docker_started_containers
+  become: yes
+
+- debug:
+    var: docker_started_containers.stdout_lines

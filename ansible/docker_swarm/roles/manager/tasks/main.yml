@@ -1,6 +1,6 @@
 ---
 
 - name: Docker Swarm Init
-  shell: docker swarm init --advertise-addr 192.168.56.210
+  shell: docker swarm init --advertise-addr "{{ docker.swarm.host_ip }}"
   register: swarm_join
   become: yes

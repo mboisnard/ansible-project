@@ -1,26 +1,6 @@
 ---
 
-- hosts: registry
-  tasks:
-    - name: Create Folder
-      file: 
-        path: /home/ubuntu/registry/
-        recurse: yes
-        state: directory
-        
-    - name: Copying Docker Compose File
-      copy:
-        src: docker-compose.yml
-        dest: /home/ubuntu/registry/docker-compose.yml
-
-    - name: Start Registry Container
-      shell: docker-compose -p registry -f /home/ubuntu/registry/docker-compose.yml up -d
-      become: yes
-
-    - name: Check Started Registry
-      shell: docker ps
-      register: docker_started_containers
-      become: yes
-
-    - debug:
-        var: docker_started_containers.stdout_lines
+- name: Start Docker Registry Container on Master node
+  hosts: master
+  roles:
+    - registry

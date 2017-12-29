@@ -2,7 +2,7 @@
 
 # get_url not work
 - name: Install Docker Compose
-  shell: curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
+  shell: curl -L "{{ docker.compose.download_url }}" -o /usr/local/bin/docker-compose
   become: yes
 
 - file:
