@@ -1,0 +1,30 @@
+node {
+
+  def app
+
+  stage('Checkout') {
+    checkout scm
+  }
+
+  stage('Build') {
+
+    dir('java') {
+      sh './gradlew clean build'
+    }
+  }
+
+  stage('Build Docker Image') {
+    
+    dir('java') {
+      app = docker.build("devops/kafka-java")
+    }
+  }
+
+  stage('Publish To Docker Registry') {
+
+    docker.withRegistry('localhost') {
+        app.push("${env.BUILD_NUMBER}")
+        app.push("latest")
+    }
+  }
+}
