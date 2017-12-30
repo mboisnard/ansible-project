@@ -49,6 +49,10 @@
   shell: usermod -aG docker jenkins
   become: yes
 
+- name: Grant access to docker.sock
+  shell: chmod 777 /var/run/docker.sock
+  become: yes
+
 - name: Get Admin User Default Password
   command: cat "{{ jenkins.password.default_file }}"
   register: admin_password
