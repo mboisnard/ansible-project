@@ -14,11 +14,16 @@
   become: yes
 
 - name: Add Jenkins GPG Key
-  shell: curl -fsSL "{{ apt.jenkins.gpg_key }}" | apt-key add -
+  apt_key:
+    url: "{{ apt.jenkins.gpg_key }}"
+    state: present
   become: yes
 
-- name: Add Jenkins Repository to Sources List 
-  shell: echo 'deb "{{ apt.jenkins.base_url }}" binary/' > /etc/apt/sources.list.d/jenkins.list
+- name: Add Jenkins Repository
+  apt_repository:
+    repo: "{{ apt.jenkins.base_url }}"
+    state: present
+    update_cache: yes
   become: yes
 
 - name: Install Jenkins Latest Version

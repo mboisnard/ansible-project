@@ -1,6 +1,6 @@
 ---
 
 - name: Start Docker Registry Container on Master node
-  hosts: master
+  hosts: registry
   roles:
     - registry

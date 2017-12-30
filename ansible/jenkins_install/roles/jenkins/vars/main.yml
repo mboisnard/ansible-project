@@ -2,7 +2,7 @@
 
 apt:
   jenkins:
-    base_url: http://pkg.jenkins.io/debian
+    base_url: deb https://pkg.jenkins.io/debian binary/
     gpg_key: https://pkg.jenkins.io/debian/jenkins-ci.org.key
 
 jenkins:
