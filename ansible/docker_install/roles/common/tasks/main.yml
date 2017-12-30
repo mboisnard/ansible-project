@@ -1,5 +1,9 @@
 ---
 
+- name: Grant Docker to Vagrant user
+  shell: usermod -aG docker vagrant
+  become: yes
+
 # get_url not work
 - name: Install Docker Compose
   shell: curl -L "{{ docker.compose.download_url }}" -o /usr/local/bin/docker-compose

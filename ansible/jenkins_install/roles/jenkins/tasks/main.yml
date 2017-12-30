@@ -13,6 +13,14 @@
     update_cache: yes
   become: yes
 
+- name: Update Certificates
+  shell: update-ca-certificates -f
+  become: yes
+
+- name: Create Certificates Files
+  shell: /var/lib/dpkg/info/ca-certificates-java.postinst configure
+  become: yes
+
 - name: Add Jenkins GPG Key
   apt_key:
     url: "{{ apt.jenkins.gpg_key }}"
@@ -36,6 +44,10 @@
 - name: Wait Jenkins Initialization
   wait_for:
     timeout: 60
+
+- name: Grant Docker to Jenkins user
+  shell: usermod -aG docker jenkins
+  become: yes
 
 - name: Get Admin User Default Password
   command: cat "{{ jenkins.password.default_file }}"
