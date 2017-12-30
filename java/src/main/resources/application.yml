@@ -1,0 +1,5 @@
+kafka:
+  bootstrap:
+    servers: "192.168.56.210:9094"
+  topic:
+    devops: esgi
