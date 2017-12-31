@@ -84,3 +84,9 @@
     script: "{{ item }}"
     timeout: 1200
   with_items: "{{ groovy_scripts.results | map(attribute='stdout') | list }}"
+
+- name: Restart Jenkins
+  service:
+    name: jenkins
+    state: restarted
+  become: yes
