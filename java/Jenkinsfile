@@ -28,4 +28,11 @@ node {
         app.push("latest")
     }
   }
+
+  stage('Deploy to Swarm') {
+    
+    dir('java') {
+      sh 'docker stack deploy --compose-file=docker-compose.yml app'
+    }
+  }
 }
