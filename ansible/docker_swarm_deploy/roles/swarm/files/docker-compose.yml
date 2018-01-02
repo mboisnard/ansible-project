@@ -25,6 +25,8 @@ services:
   # https://github.com/wurstmeister/kafka-docker
   kafka:
     image: wurstmeister/kafka:latest
+    deploy:
+      mode: global
     volumes:
       - kafka-volume:/kafka
       - /var/run/docker.sock:/var/run/docker.sock
