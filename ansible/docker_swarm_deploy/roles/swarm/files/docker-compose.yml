@@ -25,8 +25,6 @@ services:
   # https://github.com/wurstmeister/kafka-docker
   kafka:
     image: wurstmeister/kafka:latest
-    deploy:
-      mode: global
     volumes:
       - kafka-volume:/kafka
       - /var/run/docker.sock:/var/run/docker.sock
@@ -40,9 +38,10 @@ services:
     environment:
       KAFKA_CREATE_TOPICS: "esgi:1:1"
       HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"      
+      #KAFKA_ADVERTISED_HOST_NAME: 192.168.56.210
+      KAFKA_ADVERTISED_PORT: 9094
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_ADVERTISED_PROTOCOL_NAME: OUTSIDE
-      KAFKA_ADVERTISED_PORT: 9094
       KAFKA_PROTOCOL_NAME: INSIDE
       KAFKA_PORT: 9092
