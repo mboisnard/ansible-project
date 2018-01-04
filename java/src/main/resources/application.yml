@@ -1,5 +1,7 @@
 kafka:
   bootstrap:
     servers: "192.168.56.210:9094"
+  consumer:
+    group: esgi_consumer_grp
   topic:
     devops: esgi
