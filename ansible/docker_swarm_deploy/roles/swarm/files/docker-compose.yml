@@ -29,16 +29,13 @@ services:
       - kafka-volume:/kafka
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - target: 9094
-        published: 9094
-        protocol: tcp
-        mode: host
+      - 9094:9094
     networks:
       - tools-network
     environment:
       KAFKA_CREATE_TOPICS: "esgi:1:1"
-      #HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"      
-      KAFKA_ADVERTISED_HOST_NAME: 192.168.56.210
+      HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"      
+      #KAFKA_ADVERTISED_HOST_NAME: 192.168.56.210
       KAFKA_ADVERTISED_PORT: 9094
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
