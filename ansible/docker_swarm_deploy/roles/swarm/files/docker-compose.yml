@@ -35,4 +35,4 @@ services:
       - tools-network
     environment:
       ZOOKEEPER_IP: zookeeper
-      KAFKA_ADVERTISED_HOST_NAME: "127.0.0.1"
+      KAFKA_ADVERTISED_HOST_NAME: "192.168.56.210"
