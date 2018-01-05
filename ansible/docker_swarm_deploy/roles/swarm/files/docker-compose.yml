@@ -23,7 +23,7 @@ services:
     networks:
       - tools-network
 
-  #https://github.com/ches/docker-kafka
+  # https://github.com/ches/docker-kafka
   kafka:
     image: ches/kafka:latest
     volumes:

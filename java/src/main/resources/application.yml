@@ -1,6 +1,6 @@
 kafka:
   bootstrap:
-    servers: "localhost:9092"
+    servers: "192.168.56.210:9092"
   consumer:
     group: esgi_consumer_grp
   topic:
