@@ -3,7 +3,8 @@ version: '3.5'
 volumes:
   zookeeper-data-volume:
   zookeeper-logs-volume:
-  kafka-volume:
+  kafka-data-volume:
+  kafka-logs-volume:
 
 networks:
   tools-network:
@@ -22,23 +23,16 @@ services:
     networks:
       - tools-network
 
-  # https://github.com/wurstmeister/kafka-docker
+  #https://github.com/ches/docker-kafka
   kafka:
-    image: wurstmeister/kafka:latest
+    image: ches/kafka:latest
     volumes:
-      - kafka-volume:/kafka
-      - /var/run/docker.sock:/var/run/docker.sock
+      - kafka-data-volume:/data
+      - kafka-logs-volume:/logs
     ports:
-      - 9094:9094
+      - 9092:9092
     networks:
       - tools-network
     environment:
-      KAFKA_CREATE_TOPICS: "esgi:1:1"
-      HOSTNAME_COMMAND: "docker info | grep ^Name: | cut -d' ' -f 2"      
-      #KAFKA_ADVERTISED_HOST_NAME: 192.168.56.210
-      KAFKA_ADVERTISED_PORT: 9094
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-      KAFKA_ADVERTISED_PROTOCOL_NAME: OUTSIDE
-      KAFKA_PROTOCOL_NAME: INSIDE
-      KAFKA_PORT: 9092
+      ZOOKEEPER_IP: zookeeper
+      KAFKA_ADVERTISED_HOST_NAME: "127.0.0.1"
