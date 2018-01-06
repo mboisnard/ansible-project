@@ -5,12 +5,9 @@ services:
   # Deploy Config https://docs.docker.com/compose/compose-file/#mode
   # https://docs.docker.com/get-started/part5/
   kafka-java:
-    image: localhost:5000/devops/kafka-java:latest
+    image: 192.168.56.210:5000/devops/kafka-java:latest
     ports:
       - 8081:8080
     deploy:
       mode: replicated
       replicas: 3
-      placement:
-        constraints:
-          - node.role == manager
