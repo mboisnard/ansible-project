@@ -1,0 +1,5 @@
+---
+
+docker:
+  registry:
+    content: '{ "insecure-registries":["192.168.56.210:5000"] }'

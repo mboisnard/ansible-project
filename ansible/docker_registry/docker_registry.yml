@@ -4,3 +4,9 @@
   hosts: registry
   roles:
     - registry
+    - common
+
+- name: Update Docker config on Slave node
+  hosts: slave
+  roles:
+    - common

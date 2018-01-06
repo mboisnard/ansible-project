@@ -14,12 +14,6 @@
     mode: 0755
   become: yes
 
-- name: Add Insecure registry IP (for docker registry step)
-  copy:
-    content: "{{ docker.registry.content }}"
-    dest: /etc/docker/daemon.json
-  become: yes
-
 - name: Check Installed Docker Version
   shell: docker version
   register: docker_installed_version

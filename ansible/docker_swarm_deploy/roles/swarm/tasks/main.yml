@@ -17,7 +17,7 @@
 
 - name: Wait for Pull Images & Start Docker Containers
   wait_for:
-    timeout: 240
+    timeout: 300
 
 - name: Check Deployed Services
   shell: docker service ls

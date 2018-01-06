@@ -1,0 +1,13 @@
+---
+
+- name: Add Insecure registry IP
+  copy:
+    content: "{{ docker.registry.content }}"
+    dest: /etc/docker/daemon.json
+  become: yes
+
+- name: Restart Docker
+  service:
+    name: docker
+    state: restarted
+  become: yes

@@ -3,5 +3,3 @@
 docker:
   compose:
     download_url: https://github.com/docker/compose/releases/download/1.18.0/docker-compose-Linux-x86_64
-  registry:
-    content: "{ "insecure-registries":["192.168.56.210:5000"] }"
